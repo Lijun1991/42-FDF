@@ -6,7 +6,7 @@
 /*   By: lwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/11 17:34:36 by lwang             #+#    #+#             */
-/*   Updated: 2016/12/06 19:08:53 by lwang            ###   ########.fr       */
+/*   Updated: 2017/01/11 15:48:35 by lwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE 2056
+# define BUFF_SIZE 50
 # define MAX_FD 1024
 # include <fcntl.h>
 # include <stdio.h>
