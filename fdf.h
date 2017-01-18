@@ -20,6 +20,21 @@
 #include <stdlib.h>
 #include <math.h>
 
+# define win_x 2000
+# define win_y 1600
+
+# define img_win_x 120
+# define img_win_y 180
+
+# define move_up -100
+# define move_down 100
+# define move_left -100
+# define move_right 100
+
+# define zoom_in 1.1
+# define zoom_out 0.9
+
+
 typedef struct s_point
 {
     double x;
@@ -33,8 +48,11 @@ typedef struct	s_info
 	void *win;
 
 	t_point ***map;
+
 	int map_length; 
-	int line_length;
+	double *line_length;
+	double **z_h;
+	t_point	*p_center;
 
 	int fd;
 
@@ -46,11 +64,27 @@ typedef struct	s_info
 	int endian;
 }				t_info;
 
+typedef struct  s_matrix
+{
+	double a1;
+	double a2;
+	double a3;
+	double b1;
+	double b2;
+	double b3;
+	double c1;
+	double c2;
+	double c3;
+}				t_matrix;
+
 /* 
 get_info.c
 */
-t_point	**get_line(char **s, int j);
+t_point	**get_line(char **s, int j, t_info *e);
 t_point	***get_map(t_info *e);
+double	get_max_line_len(t_info *e);
+void	get_center(t_info *e);
+void	get_map_length(t_info *e, char *file);
 
 /* 
 draw.c
@@ -63,5 +97,6 @@ void	get_window(t_info *e);
 hook.c
 */
 int key_hook(int keycode, t_info *e);
+int expose_hook(t_info *e);
 
 #endif

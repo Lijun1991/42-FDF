@@ -12,36 +12,15 @@
 
 #include "fdf.h"
 
-// void	draw_point(int x, int y, t_info *e)
-// {
-// 	int i;
-// 	int color;
-	
-// 	color = 0x00FFFFFF;
-// 	i = x * e->bits_per_pixel / 8 + y * e->size_line;
-// 	e->pixel_array_img[i] = color;
-// }
-
-/*void draw_line(t_point *a, t_point *b, t_info *e)
+void	draw_point(int x, int y, t_info *e)
 {
-	int dx  = b->x - a->x;
-	int dy  = b->y - a->y;
-	int y   = a->y;
-	int eps = 0;
-    
-    for ( int x = a->x; x <= b->x; x++)  
-    {
-        //draw_point(x, y, e);
-        mlx_pixel_put(e->mlx, e->win, x, y, 0x00FFFFFF);
-        eps += dy;
-        if ( (eps << 1) >= dx )
-        {
-          y++;
-          eps -= dx;
-        }
-    }
-}*/
-
+	int i;
+	int color;
+	
+	color = 0x00FFFFFF;
+	i = x * e->bits_per_pixel / 8 + y * e->size_line;
+	e->pixel_array_img[i] = color;
+}
 
 void	draw_line(t_point *a, t_point *b, t_info *e)
 {
@@ -63,8 +42,8 @@ void	draw_line(t_point *a, t_point *b, t_info *e)
 	int D = 2 * dy - dx;
 	for (int i = 0; i < dx; i++)
 	{
-		mlx_pixel_put(e->mlx, e->win, x + 250, y + 150, 0x00FFFFFF);
-		// draw_point(x, y, e);
+		// mlx_pixel_put(e->mlx, e->win, x + 250, y + 150, 0x00FFFFFF);
+		draw_point(x, y, e);
 		while (D >= 0)
 		{
 			D = D - 2 * dx;
@@ -79,7 +58,6 @@ void	draw_line(t_point *a, t_point *b, t_info *e)
 		else
 			x += s1;
 	}
-
 }
 
 void	draw_map (t_info *e)
@@ -94,9 +72,15 @@ void	draw_map (t_info *e)
 		while (e->map[j][i]->x != -1)
 		{
 			if (e->map[j][i + 1]->x != -1)
+			{
 				draw_line(e->map[j][i], e->map[j][i + 1], e);
+				//printf("hen(%f, %f), (%f, %f)\n", e->map[j][i]->x, e->map[j][i]->y, e->map[j][i + 1]->x, e->map[j][i + 1]->y);
+			}
 			if (e->map[j + 1] != NULL)
+			{
 				draw_line(e->map[j][i], e->map[j + 1][i], e);
+				//printf("zong(%f, %f), (%f, %f)\n", e->map[j][i]->x, e->map[j][i]->y, e->map[j + 1][i]->x, e->map[j + 1][i]->y);
+			}
 			i++;
 		}
 		j++;
@@ -106,6 +90,6 @@ void	draw_map (t_info *e)
 void	get_window(t_info *e)
 {
 	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, 1200, 1200, "42");
+	e->win = mlx_new_window(e->mlx, win_x, win_y, "42");
 }
 

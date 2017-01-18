@@ -26,8 +26,26 @@ int key_hook(int keycode, t_info *e)
 {
 	if (keycode == 53)
 	{
-		mlx_destroy_window(e->mlx, e->win);
+		//mlx_destroy_window(e->mlx, e->win);
 		exit(0);
 	}
+	else if(keycode == 88)
+	{
+		mlx_destroy_image(e->win, e->img);
+		// free(e->map);
+
+		expose_hook(e);
+		move_up_all_points(e);
+	}
+	// else if (keycode == 125)
+	// {
+	// 	//mlx_destroy_image(e->win, e->img);
+	// 	move_down_all_points(e);
+	// 	expose_hook(e);
+	// }
+	printf("keycode is : %d\n", keycode);
 	return (0);
 }
+
+
+
