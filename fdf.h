@@ -23,6 +23,9 @@
 # define win_x 2000
 # define win_y 1600
 
+# define img_x 2100
+# define img_y 1700
+
 # define img_win_x 120
 # define img_win_y 180
 
@@ -30,10 +33,6 @@
 # define move_down 100
 # define move_left -100
 # define move_right 100
-
-# define zoom_in 1.1
-# define zoom_out 0.9
-
 
 typedef struct s_point
 {
@@ -48,13 +47,11 @@ typedef struct	s_info
 	void *win;
 
 	t_point ***map;
-
+	int fd;
 	int map_length; 
 	double *line_length;
 	double **z_h;
 	t_point	*p_center;
-
-	int fd;
 
 	char *pixel_array_img;
 	void *img;
@@ -92,11 +89,23 @@ draw.c
 void	draw_line(t_point *a, t_point *b, t_info *e);
 void	draw_map (t_info *e);
 void	get_window(t_info *e);
+int		expose_hook(t_info *e);
 
 /* 
 hook.c
 */
 int key_hook(int keycode, t_info *e);
 int expose_hook(t_info *e);
+
+/* 
+matrix_map.c
+*/
+t_matrix *math_trsnlation_matrix(void);
+t_matrix *math_x_rotation(void);
+t_matrix *math_y_rotation(void);
+t_matrix *math_z_rotation(void);
+void	matrix_points_p_center(t_point *p, t_matrix *m, t_info *e);
+void	matrix_map(t_info *e, t_matrix *m);
+void	cal_rotation(t_info *e, char axis);
 
 #endif

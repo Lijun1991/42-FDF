@@ -61,7 +61,8 @@ double	get_max_line_len(t_info *e)
 			max_len = e->line_length[i];
 		i++;
 	}
-	return (max_len);
+	//printf("max_len is %f\n", max_len);
+	return (max_len - 1);
 }
 
 void	get_center(t_info *e)
@@ -73,7 +74,7 @@ void	get_center(t_info *e)
 	center->y = e->map_length / 2 * 40;
 	center->z = get_z_max(e) / 2 * 40;
 	e->p_center = center;
-	// printf("%f, %f, %f\n", center->x, center->y, center->z);
+	//printf("%f, %f, %f\n", center->x, center->y, center->z);
 }
 
 t_point	**get_line(char **s, int j, t_info *e)
@@ -93,7 +94,7 @@ t_point	**get_line(char **s, int j, t_info *e)
 		line[i] = (t_point*)malloc(sizeof(t_point));
 		line[i]->x = i * 40;
 		line[i]->y = j * 40;
-		line[i]->z = ft_atoi(s[i]);
+		line[i]->z = ft_atoi(s[i]) * 20;
 		e->z_h[j][i] = line[i]->z;
 		//printf("(%f, %f, %f)\n", line[i]->x, line[i]->y,line[i]->z);
 		i++;

@@ -12,15 +12,17 @@
 
 #include "fdf.h"
 
-void	draw_point(int x, int y, t_info *e)
-{
-	int i;
-	int color;
+// void	draw_point(int x, int y, t_info *e)
+// {
+// 	int i;
+// 	int color;
 	
-	color = 0x00FFFFFF;
-	i = x * e->bits_per_pixel / 8 + y * e->size_line;
-	e->pixel_array_img[i] = color;
-}
+// 	color = 0xFFFFFF;
+// 	i = x * e->bits_per_pixel / 8 + y * e->size_line;
+// 	e->pixel_array_img[i] = color;
+// 	e->pixel_array_img[++i] = color >> 8;
+// 	e->pixel_array_img[++i] = color >> 16;
+// }
 
 void	draw_line(t_point *a, t_point *b, t_info *e)
 {
@@ -42,8 +44,8 @@ void	draw_line(t_point *a, t_point *b, t_info *e)
 	int D = 2 * dy - dx;
 	for (int i = 0; i < dx; i++)
 	{
-		// mlx_pixel_put(e->mlx, e->win, x + 250, y + 150, 0x00FFFFFF);
-		draw_point(x, y, e);
+		mlx_pixel_put(e->mlx, e->win, x + 120, y + 180, 0x00FFFFFF);
+		// draw_point(x, y, e);
 		while (D >= 0)
 		{
 			D = D - 2 * dx;
@@ -85,6 +87,18 @@ void	draw_map (t_info *e)
 		}
 		j++;
 	}
+}
+
+int expose_hook(t_info *e)
+{
+	// e->img = mlx_new_image(e->mlx, img_x, img_y);
+	// e->pixel_array_img = mlx_get_data_addr(e->img, &(e->bits_per_pixel), &(e->size_line), &(e->endian));
+	draw_map(e);
+	// mlx_put_image_to_window(e->mlx, e->win, e->img, img_win_x, img_win_y);
+	
+	// ft_bzero(e->pixel_array_img, img_x * 4 + img_y * e->size_line);
+	 // mlx_destroy_image(e->win, e->img);
+	return (0);
 }
 
 void	get_window(t_info *e)

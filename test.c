@@ -25,6 +25,19 @@
 // 	return (0);
 // }
 
+void	draw_point(int x, int y, t_info *e)
+{
+	int i;
+	int color;
+	
+	// color = 0x00FF5000;
+	i = x * 4 + y * e->size_line;
+	e->pixel_array_img[i] = 0x00;
+	e->pixel_array_img[++i] = 0xFF;
+	e->pixel_array_img[++i] = 0x47;
+	// e->pixel_array_img[++i] = 0x00;
+}
+
 void	draw_line(t_point *a, t_point *b, t_info *e)
 {
 	int x = a->x;
@@ -45,8 +58,8 @@ void	draw_line(t_point *a, t_point *b, t_info *e)
 	int D = 2 * dy - dx;
 	for (int i = 0; i < dx; i++)
 	{
-		mlx_pixel_put(e->mlx, e->win, x, y, 0x00FFFFFF);
-		// draw_point(x, y, e);
+		//mlx_pixel_put(e->mlx, e->win, x, y, 0x00FFFFFF);
+		draw_point(x, y, e);
 		while (D >= 0)
 		{
 			D = D - 2 * dx;
@@ -94,12 +107,24 @@ int key_hook(int keycode, t_info *e)
 	b->z = 0;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, 1000, 1200, "42");
+
+	e->img = mlx_new_image(e->mlx, 100, 100);
+	e->pixel_array_img = mlx_get_data_addr(e->img, &(e->bits_per_pixel), &(e->size_line), &(e->endian));
 	// mlx_expose_hook(e->win, expose_hook, e);
 	mlx_pixel_put(e->mlx, e->win, 20, 30, 0x00FFFF00);
 	mlx_pixel_put(e->mlx, e->win, 290, 180, 0x00FFFF00);
 	draw_line(a, b, e);
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 20, 30);
 
+	mlx_destroy_image(e->win, e->img);
 	mlx_key_hook(e->win, key_hook, e);
 	mlx_loop(e->mlx);
 	return (0);
 }
+
+
+
+
+
+
+

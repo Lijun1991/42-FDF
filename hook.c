@@ -24,26 +24,33 @@
 
 int key_hook(int keycode, t_info *e) 
 {
+	printf("keycode is : %d\n", keycode);
 	if (keycode == 53)
 	{
-		//mlx_destroy_window(e->mlx, e->win);
+		mlx_destroy_window(e->mlx, e->win);
 		exit(0);
 	}
 	else if(keycode == 88)
 	{
-		mlx_destroy_image(e->win, e->img);
-		// free(e->map);
-
-		expose_hook(e);
-		move_up_all_points(e);
+		mlx_clear_window(e->win, e->win);
+		// mlx_destroy_image(e->win, e->img);
+		cal_rotation(e,'z');
+		draw_map(e);
 	}
-	// else if (keycode == 125)
-	// {
-	// 	//mlx_destroy_image(e->win, e->img);
-	// 	move_down_all_points(e);
-	// 	expose_hook(e);
-	// }
-	printf("keycode is : %d\n", keycode);
+	else if (keycode == 87)
+	{
+		mlx_clear_window(e->win, e->win);
+		// mlx_destroy_image(e->win, e->img);
+		cal_rotation(e,'y');
+		draw_map(e);
+	}
+	else if (keycode == 86)
+	{
+		mlx_clear_window(e->win, e->win);
+		// mlx_destroy_image(e->win, e->img);
+		cal_rotation(e,'x');
+		draw_map(e);
+	}
 	return (0);
 }
 

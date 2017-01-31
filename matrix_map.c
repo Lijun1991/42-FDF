@@ -10,8 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	math_matrix(t_matrix *m)
+#include "fdf.h"
+
+t_matrix *math_trsnlation_matrix(void)
 {
+	t_matrix *m;
+	m = (t_matrix*)malloc(sizeof(t_matrix) * 1);
 	m->a1 = 1;
 	m->a2 = 0;
 	m->a3 = 0;
@@ -21,72 +25,94 @@ void	math_matrix(t_matrix *m)
 	m->c1 = 0;
 	m->c2 = 0;
 	m->c3 = 1;
+	return (m);
 }
 
-void	math_z_rotation(t_matrix *m)
+t_matrix *math_z_rotation(void)
 {
-	m->a1 = cos(degree);
-	m->a2 = sin(degree);
+	t_matrix *m;
+	m = (t_matrix*)malloc(sizeof(t_matrix) * 1);
+	m->a1 = cos(M_PI / 60);
+	m->a2 = sin(M_PI / 60);
 	m->a3 = 0;
-	m->b1 = sin(degree);
-	m->b2 = -cos(degree);
+	m->b1 = -sin(M_PI / 60);
+	m->b2 = cos(M_PI / 60);
 	m->b3 = 0;
 	m->c1 = 0;
 	m->c2 = 0;
 	m->c3 = 1;
+	return (m);
 }
 
-void	math_y_rotation(t_matrix *m)
+t_matrix *math_y_rotation(void)
 {
-	m->a1 = cos(degree);
+	t_matrix *m;
+	m = (t_matrix*)malloc(sizeof(t_matrix) * 1);
+	m->a1 = cos(M_PI / 60);
 	m->a2 = 0;
-	m->a3 = -sin(degree);
+	m->a3 = -sin(M_PI / 60);
 	m->b1 = 0;
 	m->b2 = 1;
 	m->b3 = 0;
-	m->c1 = sin(degree);
+	m->c1 = sin(M_PI / 60);
 	m->c2 = 0;
-	m->c3 = cos(degree);
+	m->c3 = cos(M_PI / 60);
+	return (m);
 }
 
-void	math_x_rotation(t_matrix *m)
+t_matrix *math_x_rotation(void)
 {
+	t_matrix *m;
+	m = (t_matrix*)malloc(sizeof(t_matrix) * 1);
 	m->a1 = 1;
 	m->a2 = 0;
 	m->a3 = 0;
-	m->b1 = 0;
-	m->b2 = cos(degree);
-	m->b3 = sin(degree);
+	m->b1 = 0;           
+	m->b2 = cos(M_PI / 60);
+	m->b3 = sin(M_PI / 60);
 	m->c1 = 0;
-	m->c2 = -sin(degree);
-	m->c3 = cos(degree);
+	m->c2 = -sin(M_PI / 60);
+	m->c3 = cos(M_PI / 60);
+	return (m);
 }
 
-t_matrix	*hook_rotation(t_matrix)
+void		cal_rotation(t_info *e, char axis)
 {
-	if ()
+	t_matrix *m;
+
+	if (axis == 'z')
+		m = math_z_rotation();
+	else if (axis == 'y')
+		m = math_y_rotation();
+	else
+		m = math_x_rotation();
+	matrix_map(e, m);
+	free(m);
 }
 
 /*
 matrice all the point base on p as the center for rotation
 */
-void	matrix_points_p_center(t_point *p, t_info *e)
+void	matrix_points_p_center(t_point *p, t_matrix *m, t_info *e)
 {
-	t_point *tmp;
-	t_matrix *m;
-	m = (t_matrix*)malloc(sizeof(t_matrix) * 1);
-	m = math_matrix(m);
-	tmp = (t_point*)malloc(sizeof(t_point) * 1);
+	double tmp_x;
+	double tmp_y;
+	double tmp_z;
+
 	p->x -= e->p_center->x;
 	p->y -= e->p_center->y;
-	tmp->x = p->x * m->a1 + p->y * m->a2 + p->z * m->a3;
-	tmp->y = p->x * m->b1 + p->y * m->b2 + p->z * m->b3;
-	tmp->z = p->x * m->c1 + p->y * m->c2 + p->z * m->c3;
+	tmp_x = p->x * m->a1 + p->y * m->a2 + p->z * m->a3;
+	tmp_y = p->x * m->b1 + p->y * m->b2 + p->z * m->b3;
+	tmp_z = p->x * m->c1 + p->y * m->c2 + p->z * m->c3;
+	p->z = tmp_z;
+	p->y = tmp_y;
+	p->x = tmp_x;
 	p->x += e->p_center->x;
 	p->y += e->p_center->y;
+	// printf("p is (%f, %f, %f)\n", p->x, p->y, p->z);
 }
 
-void	matrix_map(t_info *e)
+void	matrix_map(t_info *e, t_matrix *m)
 {
 	int i;
 	int j;
@@ -97,7 +123,7 @@ void	matrix_map(t_info *e)
 		i = 0;
 		while(e->map[j][i]->x != -1)
 		{
-			matrix_points_p_center(e->map[j][i], e);
+			matrix_points_p_center(e->map[j][i], m, e);
 			i++;
 		}
 		j++;
