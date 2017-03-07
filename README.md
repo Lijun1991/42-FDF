@@ -90,6 +90,7 @@ STORING COLOR INSIDE IMAGES
        the value should be transformed before being used.
        
 SET RGB COLORS
+
 You indicate RGB color values in foregroundColor, backgroundColor and altBackgrndColor. An RGB value is a 4-byte Long Integer whose format (0x00RRGGBB) is described in the following table (bytes are numbered from 0 to 3, from right to left):
 
 Byte	Description
@@ -97,6 +98,7 @@ Byte	Description
 2	Red component of the color (0..255)
 1	Green component of the color (0..255)
 0	Blue component of the color (0..255)
+
 
 The following table shows some examples of RGB color values:
 
