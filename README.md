@@ -88,3 +88,26 @@ STORING COLOR INSIDE IMAGES
        computer's  endian.  If  the endian of the image (in fact the endian of the X-
        Server's computer for remote X11 display) differs from the local endian,  then
        the value should be transformed before being used.
+       
+SET RGB COLORS
+You indicate RGB color values in foregroundColor, backgroundColor and altBackgrndColor. An RGB value is a 4-byte Long Integer whose format (0x00RRGGBB) is described in the following table (bytes are numbered from 0 to 3, from right to left):
+
+Byte	Description
+3	Must be zero if absolute RGB color
+2	Red component of the color (0..255)
+1	Green component of the color (0..255)
+0	Blue component of the color (0..255)
+
+The following table shows some examples of RGB color values:
+
+Value	Description
+0x00000000	Black
+0x00FF0000	Bright Red
+0x0000FF00	Bright Green
+0x000000FF	Bright Blue
+0x007F7F7F	Gray
+0x00FFFF00	Bright Yellow
+0x00FF7F7F	Red Pastel
+0x00FFFFFF	White
+
+http://www.4d.com/docs/CMU/CMU00628.HTM
