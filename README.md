@@ -26,6 +26,9 @@ you  wether the pixel color in the image needs to be stored in little endian (
 endian == 0), or big endian ( endian == 1).
 
 Wiki "Endianness"
+
+Endianness refers to the sequential order used to numerically interpret a range of bytes in computer memory as a larger, composed word value. It also describes the order of byte transmission over a digital link. Words may be represented in big-endian or little-endian format, with the term "end" denoting the front end or start of the word, a nomenclature potentially counterintuitive given the connotation of "finish" or "final portion" associated with "end" as a stand-alone term in everyday language. When storing a word in big-endian format the most significant byte, which is the byte containing the most significant bit, is stored first and the following bytes are stored in decreasing significance order with the least significant byte, which is the byte containing the least significant bit, thus being stored at last place. Little-endian format reverses the order of the sequence and stores the least significant byte at the first location with the most significant byte being stored last.[1] The order of bits within a byte can also have endianness (as discussed later); however, a byte is typically handled as a numerical value or character symbol and so bit sequence order is obviated.
+
 https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Big-Endian.svg/280px-Big-Endian.svg.png
 https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Little-Endian.svg/280px-Little-Endian.svg.png
 
