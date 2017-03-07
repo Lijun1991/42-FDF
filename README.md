@@ -113,3 +113,7 @@ Value	Description
 0x00FFFFFF	White
 
 http://www.4d.com/docs/CMU/CMU00628.HTM
+
+
+Color picker for Bonus part
+http://htmlcolorcodes.com/color-picker/
