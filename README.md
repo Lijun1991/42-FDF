@@ -117,3 +117,9 @@ http://www.4d.com/docs/CMU/CMU00628.HTM
 
 Color picker for Bonus part
 http://htmlcolorcodes.com/color-picker/
+
+
+Generalized Bresenham's Line Drawing Algorithm
+
+https://www.cs.umd.edu/class/fall2003/cmsc427/bresenham.html
+
